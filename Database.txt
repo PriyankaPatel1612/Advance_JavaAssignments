@@ -1,0 +1,24 @@
+
+mysql> DESC party;
++-----------+-------------+------+-----+---------+----------------+
+| Field     | Type        | Null | Key | Default | Extra          |
++-----------+-------------+------+-----+---------+----------------+
+| partyId   | int         | NO   | PRI | NULL    | auto_increment |
+| firstName | varchar(45) | NO   |     | NULL    |                |
+| lastName  | varchar(45) | NO   |     | NULL    |                |
+| address   | varchar(45) | YES  |     | NULL    |                |
+| city      | varchar(45) | YES  |     | NULL    |                |
+| zip       | int         | YES  |     | NULL    |                |
+| state     | varchar(45) | YES  |     | NULL    |                |
+| country   | varchar(45) | YES  |     | NULL    |                |
+| phone     | int         | NO   |     | NULL    |                |
++-----------+-------------+------+-----+---------+----------------+
+
+mysql> DESC userLogin;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| userLoginId | varchar(50) | NO   | PRI | NULL    |                |
+| password    | varchar(30) | NO   |     | NULL    |                |
+| partyId     | int         | NO   | MUL | NULL    | auto_increment |
++-------------+-------------+------+-----+---------+----------------+
