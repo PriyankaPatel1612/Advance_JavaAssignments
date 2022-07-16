@@ -3,6 +3,95 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>registration page</title>
+<style>
+
+	#errorBox{
+	color:red;
+	}
+  </style>
+  <script >
+  function Submit(){
+  var emailRegex = /^[A-Za-z0-9._]*\.@[A-Za-z]{2,5}$/;
+		   var fname = document.form.fname.Value,
+			   flname = document.form.lname.Value,
+			   faddress = document.form.address.Value,
+			   fcity = document.form.city.Value,
+			   fzip = document.form.zip.Value,
+			   fstate = document.form.state.Value,
+			   fcountry = document.form.country.Value,
+			   fphone = document.form.phone.Value,
+			   femail = document.form.email.Value,
+			   fpassword = document.form.password.Value;
+  
+			   if(fname==""){
+				   document.form.fname.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the first name";
+				   return false;
+			   }
+			   
+			   if(lname==""){
+				   document.form.lname.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the last name";
+				   return false;
+			   }
+			   
+			   if(address==""){
+				   document.form.address.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the address";
+				   return false;
+			   }
+			   
+			   if(city==""){
+				   document.form.city.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the city";
+				   return false;
+			   }
+			   
+			   if(zip==""){
+				   document.form.zip.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the zip";
+				   return false;
+			   }
+			   
+			   if(state==""){
+				   document.form.state.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the state";
+				   return false;
+			   }
+			   
+			   if(country==""){
+				   document.form.country.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the country";
+				   return false;
+			   }
+			   
+			   if(phone==""){
+				   document.form.phone.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the phone no.";
+				   return false;
+			   }
+			   
+			   if(femail==""){
+				   document.form.email.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the email";
+				   return false;
+			   }else if(!emailRegex.test(femail)){
+				   document.form.email.focus();
+				   document.getElementById("errorBox").inner.HTML = "Enter the valid email";
+				   return false;
+				   
+			   }
+			   
+			   
+			   if(passwordl==""){
+				   document.form.password.focus();
+				   document.getElementById("errorBox").innerHTML = "Enter the password";
+				   return false;
+			   }
+			   
+
+  }
+  </script>
 </head>
 <body>
 

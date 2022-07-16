@@ -31,36 +31,36 @@ public class registration extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customerregistration","root","root");
-			String partyId=null;
+			int partyId=0;
 			String firstname = request.getParameter("fname");
 			String lastname = request.getParameter("lname");
 			String address = request.getParameter("address");
 			String city = request.getParameter("city");			
-			String zip = request.getParameter("zip");
+			int zip = Integer.parseInt(request.getParameter("zip"));
 			String state = request.getParameter("state");
 			String country = request.getParameter("country");
-			String phone  = request.getParameter("phone");
+            int phone  = Integer.parseInt(request.getParameter("phone"));
 			String userLoginId = request.getParameter("email");
 			String password = request.getParameter("password");
 			
 			
 			
 			PreparedStatement ps1 = con.prepareStatement("insert into party values(?,?,?,?,?,?,?,?,?)");
-			ps1.setString(1, partyId);
+			ps1.setInt(1, partyId);
 			ps1.setString(2, firstname);
 			ps1.setString(3, lastname);
 			ps1.setString(4, address);
 			ps1.setString(5, city);
-			ps1.setString(6, zip);
+			ps1.setInt(6, zip);
 			ps1.setString(7, state);
 			ps1.setString(8, country);
-			ps1.setString(9, phone);
+			ps1.setInt(9, phone);
 			
 			
 			PreparedStatement ps2 = con.prepareStatement("insert into userLogin values(?,?,?)");
 			ps2.setString(1, userLoginId);
 			ps2.setString(2, password);
-			ps2.setString(3, partyId);
+			ps2.setInt(3, partyId);
 			
 			boolean E1= ps1.execute();
 			boolean E2= ps2.execute();
