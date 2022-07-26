@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/search")
-public class search extends HttpServlet {
+public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
@@ -29,13 +30,36 @@ public class search extends HttpServlet {
 		out.println("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor\" crossorigin=\"anonymous\"></linl>");
 		out.println("<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2\" crossorigin=\"anonymous\"></script>");
 		
+		out.println("<nav class=\"navbar navbar-expand-lg bg-dark\">\r\n"
+				+ "      <div class=\"container-fluid\">\r\n"
+				+ "       \r\n"
+				+ "          \r\n"
+				+ "          <a type=\"button\" class=\"btn-close btn-close-white\"  aria-label=\"Close\" href=\"homePage.jsp\"></a>\r\n"
+				
+				+ "          \r\n"
+				+ "        <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n"
+				+ "          <ul class=\"navbar-nav me-auto mb-2 mb-lg-0\"></ul>\r\n"
+				+ "        <form class=\"d-flex\" role=\"search\" action=\"showRecords\" method=\"post\">\r\n"
+				+ "         \r\n"
+				+ "         <a  class=\"btn btn-light\" href=\"showRecords\" >Back</a>\r\n"
+				+ "         \r\n"
+				+ "       </form>   \r\n"
+				+ "    </div>\r\n"
+				+ "     </div>\r\n"
+				+ "  </nav>   ");
+		
+		
 		out.println("<div class=\"vh-100 bg-primary p-2 text-dark\">");
 		out.println("<h1 class=\"text-centre\">Customer Record<h1>");
 		
 		String fname = request.getParameter("fname");
 		String lname = request.getParameter("lname");
 		
+		
+		
 		try {
+			
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customerregistration","root","root");
 			
@@ -45,31 +69,60 @@ public class search extends HttpServlet {
 			ps.setString(2,lname);
 			
 			out.print("<table class=\"table table-dark table-striped\" class=\"table table-bordered\" width=75% border=1>");
-			out.print("<caption> Customer Name: </caption>");
+			
 			
 			ResultSet rs = ps.executeQuery();
 			
 			ResultSetMetaData rsmd = rs.getMetaData();
-			int totalColumn = rsmd.getColumnCount();
+			
+			if(rs.next()) {
+			
+			
 			out.print("<tr class=\"table-light\">");
-			for(int i=1 ; i<=totalColumn ;i++)
-			{
-				out.print("<th class=\"table-light\">"+rsmd.getColumnName(i)+"</th>");
-		     }
+				
+				 out.print(("<th class=\"table-light\">S.No.</th>"));
+				 out.print(("<th class=\"table-light\">First Name</th>"));
+				 out.print(("<th class=\"table-light\">Last Name</th>"));
+				 out.print(("<th class=\"table-light\">Address</th>"));
+				 out.print(("<th class=\"table-light\">City</th>"));
+				 out.print(("<th class=\"table-light\">Zip</th>"));
+				 out.print(("<th class=\"table-light\">State</th>"));
+				 out.print(("<th class=\"table-light\">Country</th>"));
+				 out.print(("<th class=\"table-light\">Phone No.</th>"));
+				 
+				
+		    
 			
 			out.print("</tr>");
-			while(rs.next()) {
+		
 				
-				out.print("<tr><td>"+rs.getInt(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getInt(6)+"</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getInt(9));
-			}
+				out.print("<tr><td>"+rs.getInt(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getInt(6)+"</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getString(9));
+			
 			out.print("</table>");
 			
+			}else {
+				
+				response.setContentType("text/html");
+				out.println("<script type=\"text/javascript\">");
+	            out.println("alert('Search Failed!');");
+	            out.println("</script>");
+				request.getRequestDispatcher("search.jsp").forward(request,response);
+				
+				
+	            
+				
+				;
+				
+			}
 			
 		}catch(Exception e) {
-			out.print(e);
+			e.printStackTrace();
 		}
-		out.println("</div>");
-		out.println("</section>");
+		
+		
+		
+		
+	
 	}
 
 }

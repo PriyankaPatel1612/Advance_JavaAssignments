@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 
 @WebServlet("/login")
-public class login extends HttpServlet {
+public class Login extends HttpServlet {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -41,19 +41,28 @@ public class login extends HttpServlet {
 			
 			ResultSet rs = ps.executeQuery();
 			
-		while(rs.next()){
+		if(rs.next()){
 			if(userLoginId.equals(rs.getString(1))) {
 				if(password.equals(rs.getString(2))) {
+					 out.println("<script>alert(\"Logged In!\");</script>");
 				     session.setAttribute("name",userLoginId);
+				     
+				     session.setMaxInactiveInterval(300);
+				     out.println("<script>alert(\"Logged In!\");</script>");
 				     dispatcher=request.getRequestDispatcher("homePage.jsp");
 				     dispatcher.forward(request,response);
-				     }else {
-				    	    out.print("login failed");
-							dispatcher = request.getRequestDispatcher("login.html");
-							dispatcher.include(request,response);
-						}           
+				     
+				     }         
 			       }
 		        }
+		else {
+    	    
+			out.println("<script type=\"text/javascript\">");
+            out.println("alert('Login Failed! Please enter valid username and password');");
+            out.println("</script>");
+            dispatcher = request.getRequestDispatcher("login.html");
+            dispatcher.include(request, response);
+		}  
 		
 		   }catch (Exception e) {
 			e.printStackTrace();

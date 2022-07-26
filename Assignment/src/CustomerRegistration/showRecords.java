@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/showRecords")
-public class showRecords extends HttpServlet {
+public class ShowRecords extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
   
@@ -29,28 +29,31 @@ public class showRecords extends HttpServlet {
 		
 		
 		out.println("<div class=\"vh-100 bg-primary p-2 text-dark\">");
-		out.println("<h1 class=\"text-centre\">Customer Records<h1>");
+		out.println("<h1 class=\"h1\"><strong>Customer Records</strong></h1>");
+		
 				
 		out.println("<nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\" >\r\n"
 				+ "         <div class=\"container-fluid\">\r\n"
-				         
+				            
+				+ "         <a  type=\"button\" class=\"btn btn-light\"   href=\"homePage.jsp\">Back</a>\r\n"	
+			
 				+ "         <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n"
 				+ "         <ul class=\"navbar-nav me-auto mb-2 mb-lg-0\"></ul>\r\n"
 				+ "         <form class=\"d-flex\" role=\"search\" action=\"search\" method=\"post\">\r\n"
 				+ "          \r\n"
-				+ "          <a  class=\"btn btn-outline-light\" href=\"search.html\" >Search</a>\r\n"
+				+ "          <a  class=\"btn btn-outline-light\" href=\"search.jsp\" >Search</a>\r\n"
 				+ "          \r\n"
 				+ "          </form>   \r\n"
 				
 				+ "       <form class=\"d-flex\" role=\"update\" action=\"update\" method=\"post\">\r\n"
 				+ "        \r\n"
-				+ "        <a  class=\"btn btn-outline-light\" href=\"update.html\" >Update</a>\r\n"
+				+ "        <a  class=\"btn btn-outline-light\" href=\"update.jsp\" >Update</a>\r\n"
 				+ "        \r\n"
 				+ "      </form>   \r\n"
 				        
 				+ "       <form class=\"d-flex\" role=\"delete\" action=\"delete\" method=\"post\">\r\n"
 				+ "        \r\n"
-				+ "        <a  class=\"btn btn-outline-light\" href=\"delete.html\" >Delete</a>\r\n"
+				+ "        <a  class=\"btn btn-outline-light\" href=\"delete.jsp\" >Delete</a>\r\n"
 				+ "        \r\n"
 				+ "      </form>   \r\n"
 				
@@ -75,15 +78,23 @@ public class showRecords extends HttpServlet {
 			
 			int totalColumn = rsmd.getColumnCount();
 			
-			out.print("<tr>");
 			
-			for(int i=1 ; i<=totalColumn ; i++) {
 				
-				out.print("<th class=\"table-light\">"+rsmd.getColumnName(i)+"</th>");
-			}
+				 out.print("<tr class=\"table-light\">");
+				
+				 out.print(("<th class=\"table-light\">S.No.</th>"));
+				 out.print(("<th class=\"table-light\">First Name</th>"));
+				 out.print(("<th class=\"table-light\">Last Name</th>"));
+				 out.print(("<th class=\"table-light\">Address</th>"));
+				 out.print(("<th class=\"table-light\">City</th>"));
+				 out.print(("<th class=\"table-light\">Zip</th>"));
+				 out.print(("<th class=\"table-light\">State</th>"));
+				 out.print(("<th class=\"table-light\">Country</th>"));
+				 out.print(("<th class=\"table-light\">Phone No.</th>"));
+			
 				out.print("</tr>");
 				while(rs.next()) {
-					out.print("<tr><td>"+rs.getInt(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getInt(6)+"</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getInt(9)+"</td></tr>");
+					out.print("<tr><td>"+rs.getInt(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+"</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getInt(6)+"</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getString(9)+"</td></tr>");
 					
 				}
 				out.print("</table>");

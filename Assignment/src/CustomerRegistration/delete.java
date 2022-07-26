@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class delete
  */
 @WebServlet("/delete")
-public class delete extends HttpServlet {
+public class Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
@@ -30,6 +30,8 @@ public class delete extends HttpServlet {
 		 response.setContentType("text/html");
 		 PrintWriter out = response.getWriter();
 		 
+		
+		 
 		 int partyId=Integer.parseInt(request.getParameter("id"));
 		 
 		 int status=0;
@@ -39,20 +41,29 @@ public class delete extends HttpServlet {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customerregistration","root","root");			
 				PreparedStatement ps = con.prepareStatement("DELETE FROM party WHERE partyId=? ");
+				PreparedStatement ps1 = con.prepareStatement("DELETE FROM userlogin WHERE partyId=? ");
 	
 				ps.setInt(1, partyId);
+				ps1.setInt(1, partyId);
 				
+				status= ps1.executeUpdate();
 				status= ps.executeUpdate();
 				
 				if(status>0) {
-					out.print("<p>Record deleted successfully!</p>");
+					out.println("<script type=\"text/javascript\">");
+		            out.println("alert('Record deleted successfully!');");
+		            out.println("</script>");
 					
-					request.getRequestDispatcher("homePage.jsp").include(request,response);
+					
+					request.getRequestDispatcher("delete.jsp").include(request,response);
 								
 				}else {
+					out.println("<script type=\"text/javascript\">");
+		            out.println("alert('Unable to delete record,Please Retry');");
+		            out.println("</script>");
+		            
 					
-					out.print("<p>Unable to delete record,Please Retry</p>");
-					request.getRequestDispatcher("update.html");
+					request.getRequestDispatcher("delete.jsp").include(request,response);
 					
 				}
 				

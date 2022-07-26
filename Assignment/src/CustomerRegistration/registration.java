@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet("/registration")
-public class registration extends HttpServlet {
+public class Registration extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,7 @@ public class registration extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customerregistration","root","root");
-			int partyId=0;
+			int partyId=5;
 			String firstname = request.getParameter("fname");
 			String lastname = request.getParameter("lname");
 			String address = request.getParameter("address");
@@ -39,7 +39,7 @@ public class registration extends HttpServlet {
 			int zip = Integer.parseInt(request.getParameter("zip"));
 			String state = request.getParameter("state");
 			String country = request.getParameter("country");
-			int phone  = Integer.parseInt(request.getParameter("phone"));
+			String phone  = request.getParameter("phone");
 			String userLoginId = request.getParameter("email");
 			String password = request.getParameter("password");
 			
@@ -54,7 +54,7 @@ public class registration extends HttpServlet {
 			ps1.setInt(6, zip);
 			ps1.setString(7, state);
 			ps1.setString(8, country);
-			ps1.setInt(9, phone);
+			ps1.setString(9, phone);
 			
 			
 			PreparedStatement ps2 = con.prepareStatement("insert into userLogin values(?,?,?)");
@@ -67,7 +67,21 @@ public class registration extends HttpServlet {
 			
 			if(E1==false && E2==false) {
 				response.setContentType("text/html");
-				out.print("Registered Sucessfully!");
+				
+				out.println("<script type=\"text/javascript\">");
+	            out.println("alert('Registered Sucessfully!');");
+	            out.println("</script>");
+				
+				request.getRequestDispatcher("registration.html").include(request,response);
+				
+			}else {
+				response.setContentType("text/html");
+				out.println("<script type=\"text/javascript\">");
+	            out.println("alert('Some error occured! \n Try again.');");
+	            out.println("</script>");
+	            
+				
+				request.getRequestDispatcher("registration.html").include(request,response);
 				
 			}
 			
