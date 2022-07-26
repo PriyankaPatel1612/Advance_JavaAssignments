@@ -31,7 +31,7 @@ public class Registration extends HttpServlet {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customerregistration","root","root");
-			int partyId=5;
+			int partyId=0;
 			String firstname = request.getParameter("fname");
 			String lastname = request.getParameter("lname");
 			String address = request.getParameter("address");
